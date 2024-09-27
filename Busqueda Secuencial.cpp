@@ -23,10 +23,10 @@ int secuencial_ordenado (int array[] , int n, int dato){
 	while(i < n && array[i] < dato){
 		i = i +1;	
 	}
-	if(i > n || array [i] !=dato){
-		pos =-i;
+	if(i >= n || array [i] !=dato){
+		pos =-i-1;
 	}else{
-		pos = i;
+		pos = i+1;
 	}
 	return pos;
 }
