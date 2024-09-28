@@ -1,100 +1,82 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int secuencial_desordenado (int array [] , int n, int dato){
-	int pos;
+int Busqueda_secuencial_ordenado(int array [], int n,int dato){
 	int i = 0;
-	
-	while(i < n && array[i] != dato){
-		i = i +1;	
+	int pos;
+	while ( i < n && array [i] < dato){
+		i = i+1;
 	}
-	if(i < n){
-		pos = i;
+	if( i >=n || array [i] != dato){
+		return pos = -i;
 	}else{
-		pos = -1;
+		return pos = i;
 	}
-	return pos;
 }
 
-int secuencial_ordenado (int array[] , int n, int dato){
-	int pos;
-	int i = 0;
-	
-	while(i < n && array[i] < dato){
-		i = i +1;	
+int Busqueda_secuencial_desordenada (int array [], int n, int dato){
+	int i = 0 ;
+	int pos = 0 ;
+	while ( i <n && array[i] != dato){
+		i = i+1;
 	}
-	if(i >= n || array [i] !=dato){
-		pos =-i-1;
+	if (i < n){
+		return pos = i;		
 	}else{
-		pos = i+1;
+		return pos = -i;
 	}
-	return pos;
 }
-
-void solicitar_datos(int array [], int n){
-	cout << "\nIngrese la cantidad de elementos del arreglo\n" << endl;
-	cin  >> n ;
+int main ( ){
 	
-	for (int i =0 ;i <n ; i++){
-		cout << "Elemento [" << i+1<<"] : ";
-		cin  >> array [i] ;
+	int array [50];
+	int tam;
+	
+	cout << "\nIngrese la cantidad de elementos del arreglo: ";
+	cin  >> tam;
+	cout << "\n  Elementos del Arreglo " << endl;
+	for (int i = 0; i < tam ;i++){
+		cout << "Elemento ["<< i+1<<"] : ";
+		cin  >> array [i];
 	}
 	
-    cout << "\nArreglo actual " << endl;
-	for (int i=0; i < n ; i++){
+	cout << "\n        ARREGLO      " << endl;
+	for (int i =0; i<tam ;i++){
 		cout << array [i] <<" ";
 	}
 	cout << endl;
-}
 	
-int opciones (){
+	int elemento_buscar;
+	cout << "\nIngrese el elemento que desea buscar en el arreglo : ";
+	cin  >> elemento_buscar;
+	
 	int opcion;
-	cout << "\n¿Los elementos del arreglo estan ordenados?\n" << endl;
-	cout << "1.SI   "           << endl;
-	cout << "2.No   "           << endl;
-	cout << "\n Seleccione una opcion : ";
-	cin  >> opcion ;
-	return opcion;
+	cout << "\n ¿El arreglo esta ordenado?" << endl;
+	cout << "1. Si  " << endl;
+	cout << "2. No  " << endl;
+	cout << "\n Seleccione un opcion: ";
+	cin  >> opcion;
+	
+	int resultado;
+	switch (opcion){
+		case 1:
+			resultado = Busqueda_secuencial_ordenado(array ,tam, elemento_buscar);
+			if (resultado > 0){
+				cout << "\nEl elemento que busca se encontro en la posicion " << resultado +1<< "." << endl;
+			} else {
+				cout << "\nEl elemento que busca No se encontro. " << endl;
+			}
+			break;
+		case 2:
+			resultado = Busqueda_secuencial_desordenada(array,tam, elemento_buscar);
+			if (resultado > 0){
+				cout << "\nEl elemento que busca se encontro en la posicion " << resultado +1 << "."<< endl;
+			} else {
+				cout << "\nEl elemento que busca No se encontro. " << endl;
+			}
+			break;
+		default:
+			cout << "\nIntentelo nuevamente" << endl;
+			break;
+	}
+	return 0;
 }
-
-int elemento_buscar(){
-	int dato;
-	cout << "\nIngrese el elemento que desea buscar" << endl;
-	cout << "\n Elemento : ";
-	cin  >> dato;
-	return dato;
-}
-
- int main( ){
- 	int array [50];
- 	int tam;
- 	int dato;
- 	int opcion;
- 	int posicion;
- 	do {
- 	    solicitar_datos(array,tam);
- 	    elemento_buscar ();
- 	    opciones();
- 	    
- 		switch(opcion){
- 			case 1:
- 				posicion = secuencial_ordenado(array,tam,dato);
- 				cout << "\nEl elemnto que esta buscando se encuentra en la posicion : " << posicion +1 << endl;
- 				break;
- 			case 2:
- 				posicion = secuencial_desordenado(array,tam,dato);
- 				if(posicion >0){
- 				cout << "\nEl elemento que esta buscando se encuentra en la posicion : " << posicion +1 << endl;
-				}else{
-					cout << "\nEl elemento que esta buscando NO se encuentra" << endl;
-				}
-				break;
- 			default:
- 				cout << "       Intentelo de nuevo   " << endl;	
-				break;	
-		 }
-		 	
-	 } while (opcion!=3);
- 	
- 	return 0;
- }
